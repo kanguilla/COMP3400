@@ -1,0 +1,187 @@
+
+\documentclass[fullpage]{article}
+\usepackage{graphicx}
+
+% THIS FILE HAS TO BE RUN WITH PDFLATEX. IF YOU WANT TO RUN IT WITH LATEX AND YOU HAVE THE FIGURE IN eps, YOU CAN
+% UNCOMMENT THE LINES BELOW. HOWEVER, IT IS EASIER TO PRODUCE FIGURES IN PDF: YOU CAN SEND ALMOST ANYTHING TO A THE "PDF PRINTER"
+%\usepackage{epsfig}
+%\usepackage{epstopdf}
+
+\newcommand{\comlb}[1]{{\vspace{2mm}\noindent \bf REMARK (delete for submission):}~ #1 \hfill {\bf
+    END.}\\}
+
+\title{\vspace*{-2cm}\bf Example of Assignment Submission\\COMP 3400 \ \ \ Assignment 0}
+\author{Leopoldo Bertossi\\
+Student Number: 00000\\ Email: \  bertossi@scs.carleton.ca}
+\date{}
+\begin{document}
+\maketitle
+\pagestyle{plain}
+\thispagestyle{empty}
+
+\noindent
+1.  Consider the following information:
+
+{\em ``If Superman were able and willing to prevent evil,
+he would do so. If Superman were unable to prevent evil, he
+would be impotent; if he were unwilling to prevent evil, he
+would be malevolent. Superman does not prevent evil. If
+Superman exists, he is neither impotent nor malevolent."}\\
+
+\noindent (a) Represent this information in propositional logic.\\
+(b) Explain what it means in relation to (a) that {\em ``Superman does not exist"} \ follows as a consequence.\\
+(c) Use Otter to establish (b), explaining your methodology first. \\
+
+\comlb{Notice that the statement of the problems MUST be included before your solution. Not following the instructions will make you lose
+points.}
+
+
+\begin{figure}[h]
+\begin{center}
+ \includegraphics[width=4cm]{superman.pdf}
+ % \includegraphics[width=4cm]{superman.eps}
+ \caption{My Superhero}\label{fig:sup}
+\end{center}
+\end{figure}
+
+\comlb{Only computer generated figures are allowed. If you have to draw something, you can use MS PowerPoint, etc. (nothing sophisticated will be needed).}
+
+
+\noindent {\bf Solution:} \ (a)  We introduce the following ``propositional variables", with the following
+intended meanings: \ \ (cf. Figure \ref{fig:sup})
+
+\begin{itemize}
+\item[$a$:]~ {\em Superman is able to prevent evil}
+\item[$w$:]~ {\em Superman is willing to prevent evil}
+\item[$i$:]~ {\em Superman is impotent}
+\item[$m$:]~ {\em Superman is malevolent}
+\item[$p$:]~ {\em Superman prevents evil}
+\item[$e$:]~ {\em Superman exists}
+\end{itemize}
+Now, the given information can be represented by means of the following set of propositional formulas:
+\begin{itemize}
+\item[$\varphi_0$:]~ ${(a \wedge w) \rightarrow p}$.
+
+ Meaning: ``If Superman is able to prevent evil and is willing, then Superman prevents evil"
+\item[$\varphi_1$:]~ ${(\neg a \rightarrow i) \wedge (\neg w
+    \rightarrow m)}$
+
+     Meaning: Etc.
+\item[$\varphi_2$:]~ ${\neg p}$
+
+ Meaning: Etc.
+\item[$\varphi_3$:]~ ${e \rightarrow (\neg i \wedge \neg m)}$
+
+ Meaning: Etc.
+\end{itemize}
+(b) We have to prove that $\neg e$ is a consequence of $\varphi_0, \ldots, \varphi_3$.\\
+
+\noindent
+(c) We do this by contradiction, establishing by means of Otter that the set of formulas: \ $\{\varphi_0, \ldots, \varphi_3, \neg \neg e\}$ is contradictory.
+
+For this, $\varphi_0, \ldots, \varphi_3$ go into the ``usable" list, and $e$ goes into the ``sos" list.\\
+
+\comlb{Notice from above that before you do anything with the automated reasoner, you have to explain what you will do and why.} 
+
+\comlb{Below you have to include the main parts of your input/output files. The complete files have to be provided as appendices, not here.}
+
+The main part of the input file, ``sup.in" (attached) is as follows:
+
+{\small
+\begin{verbatim}
+ set(binary_res).
+
+ formula_list(usable).
+ (a & w) -> p.
+ (-a -> i) & (-w -> m).
+ -p.
+ e -> (-i & -m).
+ end_of_list.
+
+ formula_list(sos).
+ e.
+ end_of_list.
+ \end{verbatim}
+}
+
+ The main part of the output file ``sup.out" (attached) is:
+
+ {\footnotesize \begin{verbatim}
+ formula_list(usable).
+ a&w->p.    (-a->i)& (-w->m).     -p.    e-> -i& -m.
+ end_of_list.
+
+ -------> usable clausifies to:
+
+ list(usable).
+ 1 [] -a|-w|p.
+ 2 [] a|i.
+ 3 [] w|m.
+ 4 [] -p.
+ 5 [] -e| -i.
+ 6 [] -e| -m.
+ end_of_list.
+
+ formula_list(sos).
+ e.
+ end_of_list.
+
+-------> sos clausifies to:
+
+ list(sos).
+ 7 [] e.
+ end_of_list.
+
+======= end of input processing =======
+
+=========== start of search ===========
+
+given clause #1: (wt=1) 7 [] e. ** KEPT (pick-wt=1): 8
+[binary,7.1,6.1] -m. ** KEPT (pick-wt=1): 9 [binary,7.1,5.1]
+-i. 8 back subsumes 6. 9 back subsumes 5.
+
+given clause #2: (wt=1) 8 [binary,7.1,6.1] -m. ** KEPT
+(pick-wt=1): 10 [binary,8.1,3.2] w. 10 back subsumes 3.
+
+given clause #3: (wt=1) 9 [binary,7.1,5.1] -i. ** KEPT
+(pick-wt=1): 11 [binary,9.1,2.2] a. 11 back subsumes 2.
+
+given clause #4: (wt=1) 10 [binary,8.1,3.2] t. ** KEPT
+(pick-wt=0): 12 [binary,10.1,1.2,unit_del,11,4] $F.
+
+-----> EMPTY CLAUSE at   0.00 sec ---->
+                       12 [binary,10.1,1.2,unit_del,11,4] $F.
+
+Length of proof is 4.  Level of proof is 2.
+
+---------------- PROOF ----------------
+
+ 1 [] -a| -w|p.
+ 2 [] a|i.
+ 3 [] w|m.
+ 4 [] -p.
+ 5 [] -e| -i.
+ 6 [] -e| -m.
+ 7 [] e.
+ 8 [binary,7.1,6.1] -m.
+ 9 [binary,7.1,5.1] -i.
+ 10 [binary,8.1,3.2] w.
+ 11 [binary,9.1,2.2] a.
+ 12 [binary,10.1,1.2,unit_del,11,4] $F.
+
+------------ end of proof -------------
+\end{verbatim} }
+
+This run (output file) shows that Etc. Etc. Etc.
+
+\vspace{5mm}
+\comlb{Unless it is really clear, you have to explain your output right after showing
+it! It is not the role of the marker to interpret your output! The onus is on you ...}
+
+\newpage
+\section*{Appendix: Input/Output Files}
+
+\comlb{Here you can use the verbatim environment, or attach the pdf versions of your files. {\bf Everything has to to form a
+single PDF submission file. No (compressed) folders accepted.}}
+
+\end{document} 

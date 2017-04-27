@@ -1,0 +1,107 @@
+\documentclass[fullapage,12pt]{article}
+\usepackage{fancybox}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{epsfig}
+\usepackage{color}
+\usepackage{multicol}
+\usepackage{hhline}
+\usepackage{xspace,epic,eepic,graphicx}
+\usepackage{latexsym}
+\usepackage{enumerate}
+
+\newcommand{\mc}[1]{\mathcal{ #1}}
+\newcommand{\e}[1]{\emph{#1}}
+\newcommand{\ignore}[1]{}
+\newcommand{\boxtheorem}{\hfill $\Box$\\}
+\newcommand{\nit}[1]{{\it #1}}
+
+
+
+\begin{document}
+\thispagestyle{empty}
+
+\vspace*{-3.5cm}
+\begin{center} \bf \large COMP 3400~ Computational Logic and Automated Reasoning\\ Winter 2017~~ Assignment 1
+\end{center}
+
+{\small \noindent {\bf Instructions:}
+\begin{enumerate}
+\item {\bf \Large For your solution use the template file that was posted on the course news, and follow the instructions in it.}
+
+In particular: (a) Include at the top of the first page: full name, student number, and email address.
+(b) {\bf Assignments have to be created with Latex, and submitted in pdf format, as a single file}. (c) Every problem solution MUST include
+the problem statement, even if the assignment does not (sometimes the assignments will refer to slides presented in class). The source file for this assignment is provided.
+
+Latex has to be used as such, not as you would use a text editor, such as Notepad. In particular,  formulas have to be written using Latex's mathematical
+features, and then compiled.
+
+\item Assignments are individual, no groups.
+\item  %Use the same format as this document (the Latex source is provided with the pdf).
+Submit by email to the instructor, with ``Assignment "Number", CompLog" in the subject. {\bf Include your last name in the file name!} For example,
+in the subject: \ ``Assig. 1 CompLog". The file name: \ ``bertossi-1.pdf".
+
+{\bf Only a single pdf file will be accepted as submission. No tar or zip files (or anything like that), please. Keep your Latex source files in case you are requested to show them.}
+
+\item Explain your solution very carefully, but still be succinct with your answers. No unnecessary verbose arguments, please. Go to the point.
+
+Make explicit all your assumptions.
+
+\item {\bf Not following the instructions above or the solution template file will make you lose points.}
+\end{enumerate}}
+
+
+\noindent 1. \ Produce a knowledge base in {\bf PROPOSITIONAL LOGIC} capturing the following information as closely as possible as stated here: {\em If Tweety is a bird and it is not an abnormal bird, then it flies. \
+A bird is abnormal exactly when it is an ostrich, a penguin, or not an abnormal wooden bird. A wooden bird is abnormal exactly when operated under remote control. Tweety is a bird, it is  not
+an ostrich nor a penguin nor a remote controlled wooden bird.}  \ Prove using Prover9 that {\em Tweety flies}. Notice that the two forms of abnormality mentioned here may be different, one is if birds, the other is for wooden birds.
+
+You have to provide the knowledge base as part of your written report. {\em Start by listing the propositional variables and their intended meanings}.  Then produce the formulas that will go into your input file, explaining them.
+
+Explain in the report what Prover9 did to prove the claim.
+
+Attach the input and output files. For the latter, the formula transformation done by Prover9 and the pruned proof suffice.\\
+
+\noindent
+2. \ Prove with Prover9 the theorem about idempotency in Boolean algebras shown in Chapter 2. You need to use predicate logic with ad hoc symbols for the operations and special constants involved. Make sure Prover9 understands equality. Instructions as for the previous problem.
+
+More precisely, prove that {\em ``For all \ $a$:~~~ $a \sqcup a
+= a$''} \ from the following axioms:
+
+\begin{itemize}
+\item [{BA1}] ~~Commutativity~~~~ For all~  $a, b$:
+\begin{center}
+$a \sqcup b = b \sqcup a$~~~~~~ $a \sqcap b = b \sqcap a$
+\end{center}
+
+\item [{BA2}] ~~Associativity:~~~ For all~  $a, b, c$:
+\begin{center}
+$(a \sqcup b) \sqcup c = a \sqcup (b \sqcup c)$\\ $(a
+\sqcap b) \sqcap c = a \sqcap (b \sqcap c)$
+\end{center}
+\item [{BA3}] ~~Distributivity: ~~~ For all~  $a, b, c$:
+\vspace{-2mm}\begin{center}
+$a \sqcup ( b \sqcap c ) = (a \sqcup b) \sqcap (a \sqcup c )$\\
+$a \sqcap ( b \sqcup c ) = (a \sqcap b) \sqcup (a \sqcap
+c)$
+\end{center}
+
+\item [{BA4}] \ \ Neutral elements: ~~~ For all $a$: \vspace{-2mm}
+\begin{center}
+$a \sqcup \hat{0} = a$~~~~~~ $a \sqcap \hat{1} = a$
+\end{center}
+
+\item [{BA5}] ~~``Complement": ~~~ For all $a$: \vspace{-2mm}
+\begin{center}
+$a \sqcup  a^\prime = \hat{1}$~~~~~~ $a \sqcap  a^\prime =
+\hat{0}$
+\end{center}
+\end{itemize}
+
+
+{\bf Deadline: \ Feb. 6, at 23:55}
+
+
+
+
+\end{document}
